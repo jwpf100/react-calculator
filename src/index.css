@@ -16,29 +16,90 @@ code {
   box-sizing: border-box;
 }
 
+body {
+  position: relative;
+  height: 100vh;
+  place-items: center center;
+  display: grid;
+  background-color: lightgrey;
+}
+
 .calculator-container {
   border: 1px black solid;
-  width: 200px;
+  border-radius: 15px;
+  padding: 10px;
+  width: 350px;
   display: flex;
   flex-wrap: wrap;
+  background-color: lightslategray;
+}
+
+.top {
+  width: 100%;
+}
+.bottom {
+  width: 100%;
+  display: flex;
+}
+.bottom-left {
+  width: 75%;
+}
+.bottom-right {
+  width: 25%;
+}
+
+.numpad {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  font-weight: bold;
+}
+.numpad > .button {
+  width: 33.333333333%;
+}
+
+.misc-keys > .button {
+  width: 33.333333333%;
+  background-color: grey;
+}
+
+.misc-keys {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: bold;
+}
+
+.operator-keys {
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+.operator-keys > .button {
+  background-color: orange;
 }
 
 .standard {
-  border: 1px black solid;
+  border: 0.5px black solid;
   height: 50px;
   text-align: center;
   line-height: 50px;
-}
-
-.button {
-  width: 25%;
+  border-radius: 15px;
 }
 
 .display {
   height: 100px;
   width: 100%;
+  background-color: whitesmoke;
+  font-size: 40px;
+  text-align: end;
+  line-height: 100px;
+  padding-right: 10%;
 }
 
-.zero {
-  width: 50%;
+.numpad > .zero {
+  width: 66.666666666%;
+  border: 1px black solid;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 15px;
 }
