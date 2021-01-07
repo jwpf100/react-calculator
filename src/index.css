@@ -54,31 +54,35 @@ body {
   font-weight: bold;
 }
 .numpad > .button {
-  width: 33.333333333333333%;
+  width: 33.333333333%;
 }
 
 .misc-keys > .button {
-  width: 33.333333333333333%;
+  width: 33.333333333%;
+  background-color: grey;
 }
 
 .misc-keys {
   display: flex;
   flex-wrap: wrap;
-  background-color: grey;
   font-weight: bold;
 }
 
 .operator-keys {
-  background-color: orange;
   color: whitesmoke;
   font-weight: bold;
 }
 
+.operator-keys > .button {
+  background-color: orange;
+}
+
 .standard {
-  border: 1px black solid;
+  border: 0.5px black solid;
   height: 50px;
   text-align: center;
   line-height: 50px;
+  border-radius: 15px;
 }
 
 .display {
@@ -92,9 +96,10 @@ body {
 }
 
 .numpad > .zero {
-  width: 66.666666666666%;
+  width: 66.666666666%;
   border: 1px black solid;
   height: 50px;
   text-align: center;
   line-height: 50px;
+  border-radius: 15px;
 }
