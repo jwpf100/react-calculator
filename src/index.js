@@ -53,9 +53,12 @@ function Calculator() {
       setOperand(displayValue)
       setDisplay(displayValue)
       //setNewOperand([])
-      //setLastClicked('operator')
-    } else if (lastClicked === 'operator') {  
+      setLastClicked('operator')
+    } else if (lastClicked === 'operator' && newOperand === []) {  
       setNewOperator(operatorValue)
+    } else if (lastClicked === 'operator' ) {
+      setNewOperator(operatorValue)
+      setNewOperand([])
     } else {
     setNewOperator(operatorValue) 
     setOperand(displayValue)
@@ -90,7 +93,7 @@ function Calculator() {
   const performCalculation = (operatorValue) => {
 
       let firstNumber = operand;
-      let secondNumber = parseInt(newOperand.join(''));
+      let secondNumber = parseFloat(newOperand.join(''));
       let result;
 
       switch(operatorValue) {
@@ -114,13 +117,17 @@ function Calculator() {
   }
 
   const digitClicked = (digitValue) => {
-    let newNumber = [...newOperand, digitValue];
-    setNumberInput(newNumber);
+    let newNumber;
+    if (digitValue === '.' && newOperand === '') {
+      newNumber = ['0', '.']
+    } else {
+    newNumber = [...newOperand, digitValue];
+  } setNumberInput(newNumber);
   }
 
   const operatorClicked = (operatorValue) => {
     if ( operand.length === 0 ) {
-      let newDisplay = parseInt(newOperand.join(''));
+      let newDisplay = parseFloat(newOperand.join(''));
       setCalculatorState(newDisplay, operatorValue);
     } else {
       let newDisplay = performCalculation(operator);
@@ -165,7 +172,7 @@ function Calculator() {
       <Button onClickFunction = {digitClicked} value={3}/>
       <Button onClickFunction = {operatorClicked} value='+'/>
       <Button onClickFunction = {digitClicked} value={0}/>
-      <Button onClickFunction = {inputClicked} value='.'/>
+      <Button onClickFunction = {digitClicked} value='.'/>
       <Button onClickFunction = {operatorClicked} value='='/>
     </div>
   )
