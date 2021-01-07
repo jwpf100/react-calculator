@@ -30,11 +30,15 @@ function Calculator() {
   const [operator, setNewOperator] = useState('');
   const [operand, setOperand] = useState('');
   const [display, setDisplay] = useState([0]);
-  const [lastClicked, setLastClicked] = useState('number');
+  const [lastClicked, setLastClicked] = useState('cancel');
  
 
   //Computations Based On State
 
+ //test this
+
+ const calculatorStatus = lastClicked === 'number' ? 'yes' : 'no';
+  
   //setState
 
   const setNumberInput = (displayValue) => {
@@ -43,18 +47,13 @@ function Calculator() {
     setLastClicked('number')
   }
 
-  //test this
-
-  const calculatorStatus = lastClicked === 'number' ? 'yes' : 'no';
-
   const setCalculatorState = (displayValue, operatorValue) => {
 
-    console.log(calculatorStatus);
     if (operatorValue === '=') {
       setOperand(displayValue)
       setDisplay(displayValue)
-      setNewOperand([])
-      setLastClicked('operator')
+      //setNewOperand([])
+      //setLastClicked('operator')
     } else if (lastClicked === 'operator') {  
       setNewOperator(operatorValue)
     } else {
@@ -63,6 +62,16 @@ function Calculator() {
     setDisplay(displayValue)
     setNewOperand([])
     setLastClicked('operator')
+    }
+  }
+
+  const setCalcCancelLast = () => {
+    setLastClicked('cancel')
+    if(lastClicked === 'number') {
+      setNewOperand([0])
+      setDisplay([0])
+    } else if (lastClicked === 'operator') {
+      setNewOperator('')
     }
   }
 
@@ -123,10 +132,23 @@ function Calculator() {
     console.log(`Function key - ${inputValue}`)
   }
 
+  const cancelClicked = () => {
+    if (lastClicked === 'cancel' ) {
+      //Replace this with something that mounts and unmounts the main component?
+      setNewOperand([0]);
+      setNewOperator('');
+      setOperand('');
+      setDisplay([0]);
+      setLastClicked('cancel');
+    } else {
+      setCalcCancelLast()
+  }
+}
+
   return (
     <div className='calculator-container'>
       <Display message={display}/>
-      <Button onClickFunction = {inputClicked} value='AC'/>
+      <Button onClickFunction = {cancelClicked} value={lastClicked !== 'cancel' ? 'C' : 'AC'}/>
       <Button onClickFunction = {inputClicked} value='+/-'/>
       <Button onClickFunction = {inputClicked} value='%'/>
       <Button onClickFunction = {operatorClicked} value='/'/>
