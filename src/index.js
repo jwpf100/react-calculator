@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+  //Calculations
+
+  const utils = {
+    addition: (firstNum, secondNum) => firstNum + secondNum,
+    subtraction: (firstNum, secondNum) =>  firstNum - secondNum,
+    division: (firstNum, secondNum) => firstNum / secondNum,
+    multiplication: (firstNum, secondNum) => firstNum * secondNum,
+
+    range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i),
+    }
+
 function Display(props) {
   let className = 'standard display'
   return (
@@ -21,6 +32,76 @@ function Button(props) {
     </div>
   )
 }
+
+function ZeroButton(props) {
+  let className = 'zero button'
+  const handleClick = () => props.onClickFunction(props.value);
+  return (
+    <div onClick={handleClick} className={className}>
+      {props.value}
+    </div>
+  )
+}
+
+function Numpad(props) {
+  let className = 'inner-container numpad'
+  const numberKeys = [...utils.range(1, 9)];
+
+  return (
+      <div className={className}>
+                <ZeroButton 
+              onClickFunction={props.onClickFunction} 
+              value={0}
+          />
+          <Button 
+              onClickFunction={props.onClickFunction} 
+              value={'.'}
+          />
+        {numberKeys.map(numberKey => 
+          <Button 
+            onClickFunction={props.onClickFunction} 
+            value={numberKey}
+          />
+        )}
+
+      </div>
+  )
+};
+
+function OperatorKeys(props) {
+  let className = 'inner-container operator-keys'
+  const operatorKeys = ['/', 'x', '-', '+', '=', ];
+  
+  return (
+      <div className={className}>
+        {operatorKeys.map(operatorKey => 
+          <Button 
+            onClickFunction={props.onClickFunction} 
+            value={operatorKey}/>
+        )}
+      </div>
+  )
+};
+
+function MiscKeys(props) {
+  let className = 'inner-container misc-keys'
+  const miscKeys = ['+/-', '%'];
+  
+  return (
+      <div className={className}>
+          <Button 
+              onClickFunction={props.cancelFunction} 
+              value={props.lastClicked !== 'cancel' ? 'C' : 'AC'}
+          />
+          {miscKeys.map(miscKey => 
+          <Button 
+            onClickFunction={props.onClickFunction} 
+            value={miscKey}/>
+        )}
+      </div>
+  )
+};
+
 
 function Calculator() {
 
@@ -50,21 +131,21 @@ function Calculator() {
   const setCalculatorState = (displayValue, operatorValue) => {
 
     if (operatorValue === '=') {
-      setOperand(displayValue)
-      setDisplay(displayValue)
+        setOperand(displayValue)
+        setDisplay(displayValue)
       //setNewOperand([])
-      setLastClicked('operator')
+        setLastClicked('operator')
     } else if (lastClicked === 'operator' && newOperand === []) {  
-      setNewOperator(operatorValue)
+        setNewOperator(operatorValue)
     } else if (lastClicked === 'operator' ) {
-      setNewOperator(operatorValue)
-      setNewOperand([])
+        setNewOperator(operatorValue)
+        setNewOperand([])
     } else {
-    setNewOperator(operatorValue) 
-    setOperand(displayValue)
-    setDisplay(displayValue)
-    setNewOperand([])
-    setLastClicked('operator')
+        setNewOperator(operatorValue) 
+        setOperand(displayValue)
+        setDisplay(displayValue)
+        setNewOperand([])
+        setLastClicked('operator')
     }
   }
 
@@ -76,16 +157,6 @@ function Calculator() {
     } else if (lastClicked === 'operator') {
       setNewOperator('')
     }
-  }
-
-  
-  //Calculations
-
-  const utils = {
-  addition: (firstNum, secondNum) => firstNum + secondNum,
-  subtraction: (firstNum, secondNum) =>  firstNum - secondNum,
-  division: (firstNum, secondNum) => firstNum / secondNum,
-  multiplication: (firstNum, secondNum) => firstNum * secondNum,
   }
 
   //Perform Calculation
@@ -154,26 +225,18 @@ function Calculator() {
 
   return (
     <div className='calculator-container'>
-      <Display message={display}/>
-      <Button onClickFunction = {cancelClicked} value={lastClicked !== 'cancel' ? 'C' : 'AC'}/>
-      <Button onClickFunction = {inputClicked} value='+/-'/>
-      <Button onClickFunction = {inputClicked} value='%'/>
-      <Button onClickFunction = {operatorClicked} value='/'/>
-      <Button onClickFunction = {digitClicked} value={7}/>
-      <Button onClickFunction = {digitClicked} value={8}/>
-      <Button onClickFunction = {digitClicked} value={9}/>
-      <Button onClickFunction = {operatorClicked} value='x'/>
-      <Button onClickFunction = {digitClicked} value={4}/>
-      <Button onClickFunction = {digitClicked} value={5}/>
-      <Button onClickFunction = {digitClicked} value={6}/>
-      <Button onClickFunction = {operatorClicked} value='-'/>
-      <Button onClickFunction = {digitClicked} value={1}/>
-      <Button onClickFunction = {digitClicked} value={2}/>
-      <Button onClickFunction = {digitClicked} value={3}/>
-      <Button onClickFunction = {operatorClicked} value='+'/>
-      <Button onClickFunction = {digitClicked} value={0}/>
-      <Button onClickFunction = {digitClicked} value='.'/>
-      <Button onClickFunction = {operatorClicked} value='='/>
+      <div className='top'>
+        <Display message={display}/>
+      </div>
+      <div className='bottom'>
+        <div className='bottom-left'>
+          <MiscKeys lastClicked = {lastClicked} cancelFunction = {cancelClicked} onClickFunction = {inputClicked} />
+          <Numpad onClickFunction = {digitClicked} />
+        </div>
+        <div className='bottom-right'>
+          <OperatorKeys onClickFunction = {operatorClicked} />
+        </div>
+      </div>
     </div>
   )
 }
