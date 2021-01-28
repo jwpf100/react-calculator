@@ -8,7 +8,7 @@ Work in progress.  Basic functionality and styling present, but bugs need to be 
 
 ## Project Screen Shot(s)
 
-![image](https://user-images.githubusercontent.com/64267174/106173783-37896900-618c-11eb-9346-5ed1e275dccd.png)
+<image src="https://user-images.githubusercontent.com/64267174/106173783-37896900-618c-11eb-9346-5ed1e275dccd.png" height=500>
 
 ## Installation and Setup Instructions
 
